@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Fitness Journey</string>
+    <string name="widget_description">Current weight, weight lost, and progress to your target.</string>
+</resources>
