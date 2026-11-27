@@ -42,6 +42,7 @@ private val Muted = Color(0xFFAAB5C6)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (FitnessData.ensureDefaults(this)) FitnessWidgetProvider.updateAll(this)
         setContent { FitnessJourneyApp(this) }
     }
 }
@@ -107,7 +108,7 @@ fun FitnessJourneyApp(context: android.content.Context) {
                             Spacer(Modifier.height(22.dp))
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                 Text("Journey progress", color = Color.White, fontWeight = FontWeight.Medium)
-                                Text("${progress.toInt()}%", color = Green, fontWeight = FontWeight.Bold)
+                                Text(FitnessData.formatProgress(progress), color = Green, fontWeight = FontWeight.Bold)
                             }
                             Spacer(Modifier.height(10.dp))
                             LinearProgressIndicator(progress = { progress / 100f }, modifier = Modifier.fillMaxWidth().height(9.dp), color = Green, trackColor = Color(0xFF303B4D))

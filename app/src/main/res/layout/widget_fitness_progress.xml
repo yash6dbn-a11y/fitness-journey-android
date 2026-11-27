@@ -1,37 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingStart="14dp"
-    android:paddingEnd="14dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="9dp"
-    android:background="@drawable/widget_bg">
+    android:background="@drawable/widget_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="8dp"
+    android:paddingTop="2dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="2dp">
+
+    <ImageView
+        android:id="@+id/progress_ring"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/widget_ring_description"
+        android:scaleType="fitCenter" />
+
+    <FrameLayout
+        android:layout_width="1dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#2A3D55" />
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.05" android:orientation="vertical">
-            <TextView android:id="@+id/current_weight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="94.55 kg" android:textColor="#F7F9FC" android:textSize="19sp" android:textStyle="bold" android:maxLines="1" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CURRENT" android:textColor="#AAB5C6" android:textSize="9sp" android:letterSpacing="0.08" />
-        </LinearLayout>
-        <View android:layout_width="1dp" android:layout_height="34dp" android:background="#344052" />
-        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.9" android:gravity="center" android:orientation="vertical">
-            <TextView android:id="@+id/lost_weight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="↓ 6.85 kg" android:textColor="#69F800" android:textSize="16sp" android:textStyle="bold" android:maxLines="1" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LOST" android:textColor="#AAB5C6" android:textSize="9sp" android:letterSpacing="0.08" />
-        </LinearLayout>
-        <View android:layout_width="1dp" android:layout_height="34dp" android:background="#344052" />
-        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.9" android:gravity="end" android:orientation="vertical">
-            <TextView android:id="@+id/left_weight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="18.55 kg" android:textColor="#F7F9FC" android:textSize="16sp" android:textStyle="bold" android:maxLines="1" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LEFT" android:textColor="#AAB5C6" android:textSize="9sp" android:letterSpacing="0.08" />
-        </LinearLayout>
-    </LinearLayout>
-    <ProgressBar android:id="@+id/progress_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="7dp" android:layout_marginTop="6dp" android:progress="27" android:max="100" android:progressTint="#69F800" android:progressBackgroundTint="#303B4D" />
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:orientation="horizontal">
-        <TextView android:id="@+id/start_label" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="101.4 kg start" android:textColor="#AAB5C6" android:textSize="9sp" />
-        <TextView android:id="@+id/target_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="76 kg target" android:textColor="#AAB5C6" android:textSize="9sp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/current_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="22sp"
+            android:autoSizeMinTextSize="13sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="sans-serif"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="96.6 kg"
+            android:textColor="#F7F9FC"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/progress_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:autoSizeMaxTextSize="11sp"
+            android:autoSizeMinTextSize="7sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="↓ 4.4 kg lost · 21.6 kg to goal"
+            android:textColor="#D5DDE8"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/target_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/widget_target_pill"
+            android:fontFamily="sans-serif"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.04"
+            android:maxLines="1"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="2dp"
+            android:text="TARGET 75 kg"
+            android:textColor="#69F800"
+            android:textSize="10sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
