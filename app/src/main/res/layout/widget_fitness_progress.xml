@@ -7,15 +7,15 @@
     android:clipToOutline="true"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingStart="7.5dp"
-    android:paddingTop="7.5dp"
+    android:paddingStart="11dp"
+    android:paddingTop="11dp"
     android:paddingEnd="14dp"
-    android:paddingBottom="7.5dp">
+    android:paddingBottom="11dp">
 
     <ImageView
         android:id="@+id/progress_ring"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
         android:contentDescription="@string/widget_ring_description"
         android:scaleType="fitCenter" />
 
@@ -30,8 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:baselineAligned="true"
-            android:baselineAlignedChildIndex="1"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
@@ -44,35 +44,43 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_widget_weight" />
 
-            <TextView
-                android:id="@+id/current_weight"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:fontFamily="sans-serif"
-                android:includeFontPadding="false"
-                android:text="96.6"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:baselineAligned="true"
+                android:baselineAlignedChildIndex="0"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:fontFamily="sans-serif"
-                android:includeFontPadding="false"
-                android:text="kg"
-                android:textColor="#B3FFFFFF"
-                android:textSize="8sp" />
+                <TextView
+                    android:id="@+id/current_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:text="96.6"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:text="kg"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="8sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:baselineAligned="true"
-            android:baselineAlignedChildIndex="1"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
@@ -85,35 +93,43 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_widget_south_east" />
 
-            <TextView
-                android:id="@+id/lost_weight"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:fontFamily="sans-serif"
-                android:includeFontPadding="false"
-                android:text="4.4"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:baselineAligned="true"
+                android:baselineAlignedChildIndex="0"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:fontFamily="sans-serif"
-                android:includeFontPadding="false"
-                android:text="kg"
-                android:textColor="#B3FFFFFF"
-                android:textSize="8sp" />
+                <TextView
+                    android:id="@+id/lost_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:text="4.4"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:text="kg"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="8sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:baselineAligned="true"
-            android:baselineAlignedChildIndex="1"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
@@ -126,27 +142,35 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_widget_target" />
 
-            <TextView
-                android:id="@+id/remaining_weight"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:fontFamily="sans-serif"
-                android:includeFontPadding="false"
-                android:text="21.6"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:baselineAligned="true"
+                android:baselineAlignedChildIndex="0"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:fontFamily="sans-serif"
-                android:includeFontPadding="false"
-                android:text="kg"
-                android:textColor="#B3FFFFFF"
-                android:textSize="8sp" />
+                <TextView
+                    android:id="@+id/remaining_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:text="21.6"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:text="kg"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="8sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

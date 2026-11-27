@@ -48,8 +48,8 @@ class FitnessWidgetProvider : AppWidgetProvider() {
         private fun updateOne(context: Context, manager: AppWidgetManager, id: Int) {
             val views = RemoteViews(context.packageName, R.layout.widget_fitness_progress)
             val heightDp = cardHeightDp(context, manager.getAppWidgetOptions(id))
-            val gapDp = 7.5f
-            val diameterDp = (heightDp - gapDp * 2f).coerceAtLeast(32f)
+            val diameterDp = (heightDp * 0.74f).coerceAtLeast(32f)
+            val gapDp = (heightDp - diameterDp) / 2f
             if (Build.VERSION.SDK_INT >= 31) {
                 val density = context.resources.displayMetrics.density
                 views.setViewPadding(
@@ -115,7 +115,7 @@ class FitnessWidgetProvider : AppWidgetProvider() {
             val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
             bitmap.density = metrics.densityDpi
             val canvas = Canvas(bitmap)
-            val stroke = 6f * metrics.density
+            val stroke = 6f * metrics.density * (diameterDp / 61f)
             val inset = stroke / 2f
             val oval = RectF(inset, inset, size - inset, size - inset)
             val track = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -141,7 +141,11 @@ class FitnessWidgetProvider : AppWidgetProvider() {
                 color = Color.WHITE
                 textAlign = Paint.Align.CENTER
                 typeface = Typeface.create("sans-serif", Typeface.BOLD)
-                textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 11f, metrics)
+                textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 11f * diameterDp / 61f, metrics)
+            }
+            val inner = oval.width() - stroke
+            while (text.measureText(label) > inner * 0.82f && text.textSize > size * 0.12f) {
+                text.textSize *= 0.92f
             }
             val baseline = size / 2f - (text.descent() + text.ascent()) / 2f
             canvas.drawText(label, size / 2f, baseline, text)
