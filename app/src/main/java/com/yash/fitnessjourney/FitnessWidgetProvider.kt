@@ -17,6 +17,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.widget.RemoteViews
 import java.util.Locale
 import kotlin.math.abs
@@ -37,9 +38,11 @@ class FitnessWidgetProvider : AppWidgetProvider() {
     }
 
     companion object {
-        private const val ACCENT = "#69F800"
+        private const val ACCENT = "#61C70B"
         private const val TRACK = "#344052"
         private const val LABEL = "#F7F9FC"
+        private const val CELL = "#212342"
+        private const val MUTED = "#D5DDE8"
 
         fun updateAll(context: Context) {
             val manager = AppWidgetManager.getInstance(context)
@@ -53,7 +56,7 @@ class FitnessWidgetProvider : AppWidgetProvider() {
             val lost = FitnessData.lost(context)
             val remaining = FitnessData.remaining(context)
             val progress = FitnessData.progress(context)
-            views.setTextViewText(R.id.current_weight, "${formatKg(current)} kg")
+            views.setTextViewText(R.id.current_weight, weightLine(current))
             views.setTextViewText(R.id.progress_detail, detailLine(lost, remaining))
             views.setTextViewText(R.id.target_label, "TARGET ${formatKg(FitnessData.target(context))} kg")
             views.setImageViewBitmap(R.id.progress_ring, progressRing(context, progress))
@@ -65,6 +68,14 @@ class FitnessWidgetProvider : AppWidgetProvider() {
             )
             views.setOnClickPendingIntent(R.id.widget_root, intent)
             manager.updateAppWidget(id, views)
+        }
+
+        private fun weightLine(current: Float): CharSequence {
+            val number = formatKg(current)
+            return SpannableString("$number kg").apply {
+                setSpan(RelativeSizeSpan(0.58f), number.length, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                setSpan(ForegroundColorSpan(Color.parseColor(MUTED)), number.length, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
         }
 
         private fun detailLine(lost: Float, remaining: Float): CharSequence {
@@ -96,13 +107,15 @@ class FitnessWidgetProvider : AppWidgetProvider() {
 
         private fun progressRing(context: Context, percent: Float): Bitmap {
             val metrics = context.resources.displayMetrics
-            val size = (48f * metrics.density).toInt().coerceIn(48, 512)
+            val size = (53f * metrics.density).toInt().coerceIn(48, 512)
             val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
             bitmap.density = metrics.densityDpi
             val canvas = Canvas(bitmap)
-            val stroke = size * 0.105f
-            val pad = stroke * 0.85f
-            val oval = RectF(pad, pad, size - pad, size - pad)
+            val cell = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.parseColor(CELL) }
+            canvas.drawCircle(size / 2f, size / 2f, size / 2f - 0.5f, cell)
+            val inset = size * 0.17f
+            val oval = RectF(inset, inset, size - inset, size - inset)
+            val stroke = oval.width() * 0.105f
             val track = Paint(Paint.ANTI_ALIAS_FLAG).apply {
                 style = Paint.Style.STROKE
                 strokeWidth = stroke
@@ -139,10 +152,10 @@ class FitnessWidgetProvider : AppWidgetProvider() {
                 color = Color.parseColor(LABEL)
                 textAlign = Paint.Align.CENTER
                 typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
-                textSize = size * 0.22f
+                textSize = oval.width() * 0.28f
             }
             val inner = oval.width() - stroke
-            while (text.measureText(label) > inner * 0.86f && text.textSize > size * 0.12f) {
+            while (text.measureText(label) > inner * 0.86f && text.textSize > oval.width() * 0.16f) {
                 text.textSize *= 0.92f
             }
             val baseline = size / 2f - (text.descent() + text.ascent()) / 2f

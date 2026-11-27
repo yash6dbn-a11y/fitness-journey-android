@@ -35,13 +35,13 @@ SharedPreferences are not wiped. A one-time migration (`defaults_migrated_v2`) r
 
 ## Widget
 
-The widget is a dark rounded card with a neon green accent (`#69F800`). A circular ring on the left shows progress, with the percentage in the centre. The right side shows the current weight, kilograms lost, kilograms still to go, and the target. The ring is drawn as a bitmap so the widget stays on the standard RemoteViews path. Tapping the card opens the app.
+The widget is a dark stadium-shaped card. Its accent green is `#61C70B`, sampled from the Samsung Health activity ring. A circular ring on the left shows progress, with the percentage in the centre. The right side shows the current weight, kilograms lost, kilograms still to go, and the target. The ring is drawn as a bitmap so the widget stays on the standard RemoteViews path. Tapping the card opens the app.
 
 It requests a 2×1 cell (`targetCellWidth` 2, `targetCellHeight` 1), with `minWidth` 110dp and `minHeight` 40dp so older sizing math also lands on two columns by one row.
 
 ## Build locally
 
-Open this folder in Android Studio (recent stable version), allow Gradle sync, then choose **Build > Build Bundle(s) / APK(s) > Build APK(s)**. The project uses Android Gradle Plugin 8.7.3, Gradle 8.9, Java 17, compile SDK 35 and min SDK 26. Version 1.1.0.
+Open this folder in Android Studio (recent stable version), allow Gradle sync, then choose **Build > Build Bundle(s) / APK(s) > Build APK(s)**. The project uses Android Gradle Plugin 8.7.3, Gradle 8.9, Java 17, compile SDK 35 and min SDK 26. Version 1.1.1.
 
 ## Build through GitHub Actions
 
