@@ -16,17 +16,7 @@
         android:top="1dp">
         <shape android:shape="rectangle">
             <corners android:radius="100dp" />
-            <solid android:color="#73141C2E" />
-        </shape>
-    </item>
-    <item
-        android:bottom="1dp"
-        android:left="1dp"
-        android:right="1dp"
-        android:top="1dp">
-        <shape android:shape="rectangle">
-            <corners android:radius="100dp" />
-            <solid android:color="#1AFFFFFF" />
+            <solid android:color="#991A3352" />
         </shape>
     </item>
     <item

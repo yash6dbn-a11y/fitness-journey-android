@@ -6,13 +6,16 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
+import android.util.SizeF
 import android.util.TypedValue
 import android.widget.RemoteViews
 import java.util.Locale
@@ -44,10 +47,25 @@ class FitnessWidgetProvider : AppWidgetProvider() {
 
         private fun updateOne(context: Context, manager: AppWidgetManager, id: Int) {
             val views = RemoteViews(context.packageName, R.layout.widget_fitness_progress)
+            val heightDp = cardHeightDp(context, manager.getAppWidgetOptions(id))
+            val gapDp = 7.5f
+            val diameterDp = (heightDp - gapDp * 2f).coerceAtLeast(32f)
+            if (Build.VERSION.SDK_INT >= 31) {
+                val density = context.resources.displayMetrics.density
+                views.setViewPadding(
+                    R.id.widget_root,
+                    (gapDp * density).toInt(),
+                    (gapDp * density).toInt(),
+                    (14f * density).toInt(),
+                    (gapDp * density).toInt()
+                )
+                views.setViewLayoutWidth(R.id.progress_ring, diameterDp, TypedValue.COMPLEX_UNIT_DIP)
+                views.setViewLayoutHeight(R.id.progress_ring, diameterDp, TypedValue.COMPLEX_UNIT_DIP)
+            }
             views.setTextViewText(R.id.current_weight, formatKg(FitnessData.current(context)))
             views.setTextViewText(R.id.lost_weight, formatKg(FitnessData.lost(context)))
             views.setTextViewText(R.id.remaining_weight, formatKg(FitnessData.remaining(context)))
-            views.setImageViewBitmap(R.id.progress_ring, progressRing(context, FitnessData.progress(context)))
+            views.setImageViewBitmap(R.id.progress_ring, progressRing(context, FitnessData.progress(context), diameterDp))
             val intent = PendingIntent.getActivity(
                 context,
                 0,
@@ -68,9 +86,32 @@ class FitnessWidgetProvider : AppWidgetProvider() {
             }
         }
 
-        private fun progressRing(context: Context, percent: Float): Bitmap {
+        private fun cardHeightDp(context: Context, options: Bundle): Float {
+            if (Build.VERSION.SDK_INT >= 31) {
+                @Suppress("DEPRECATION")
+                val sizes = options.getParcelableArrayList<SizeF>(AppWidgetManager.OPTION_APPWIDGET_SIZES)
+                if (!sizes.isNullOrEmpty()) {
+                    val portrait = context.resources.configuration.orientation != Configuration.ORIENTATION_LANDSCAPE
+                    val wide = sizes.filter { it.width >= it.height && it.height >= 48f }
+                    val picked = if (portrait) wide.minByOrNull { it.width } else wide.maxByOrNull { it.width }
+                    if (picked != null) return picked.height
+                }
+            }
+            val minH = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0).toFloat()
+            val maxH = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0).toFloat()
+            val portrait = context.resources.configuration.orientation != Configuration.ORIENTATION_LANDSCAPE
+            val primary = if (portrait) maxH else minH
+            val secondary = if (portrait) minH else maxH
+            return when {
+                primary in 48f..160f -> primary
+                secondary in 48f..160f -> secondary
+                else -> 83f
+            }
+        }
+
+        private fun progressRing(context: Context, percent: Float, diameterDp: Float): Bitmap {
             val metrics = context.resources.displayMetrics
-            val size = (68f * metrics.density).toInt().coerceAtLeast(1)
+            val size = (diameterDp * metrics.density).toInt().coerceAtLeast(1)
             val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
             bitmap.density = metrics.densityDpi
             val canvas = Canvas(bitmap)
