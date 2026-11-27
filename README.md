@@ -41,7 +41,7 @@ It requests a 2×1 cell (`targetCellWidth` 2, `targetCellHeight` 1), with `minWi
 
 ## Build locally
 
-Open this folder in Android Studio (recent stable version), allow Gradle sync, then choose **Build > Build Bundle(s) / APK(s) > Build APK(s)**. The project uses Android Gradle Plugin 8.7.3, Gradle 8.9, Java 17, compile SDK 35 and min SDK 26. Version 1.1.1.
+Open this folder in Android Studio (recent stable version), allow Gradle sync, then choose **Build > Build Bundle(s) / APK(s) > Build APK(s)**. The project uses Android Gradle Plugin 8.7.3, Gradle 8.9, Java 17, compile SDK 35 and min SDK 26. Version 1.1.2. Debug APKs are signed with the keystore committed at `app/debug.keystore`, so a later build can install over the previous one. The v0.2.0 and v0.2.1 preview APKs were signed by temporary CI keys and cannot be updated in place.
 
 ## Build through GitHub Actions
 
@@ -53,6 +53,6 @@ Long-press the Samsung home screen, choose **Widgets > Fitness Journey > Fitness
 
 ## Data and limitations
 
-- Weigh-ins and goals are stored locally on the device. There is no account, cloud sync or automatic backup service in this version.
+- Weigh-ins and goals are stored locally on the device. There is no account, cloud sync or automatic backup service in this version. History can be copied out from the History tab as CSV. The app does not import that file back in.
 - The app does not read Samsung Health data automatically. Add weigh-ins manually.
 - A scheduled Sunday notification reminder is not included.
