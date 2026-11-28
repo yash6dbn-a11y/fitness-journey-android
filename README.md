@@ -41,7 +41,7 @@ It requests a 2×1 cell (`targetCellWidth` 2, `targetCellHeight` 1), with `minWi
 
 ## Build locally
 
-Open this folder in Android Studio (recent stable version), allow Gradle sync, then choose **Build > Build Bundle(s) / APK(s) > Build APK(s)**. The project uses Android Gradle Plugin 8.7.3, Gradle 8.9, Java 17, compile SDK 35 and min SDK 26. Version 1.3.2. Debug APKs are signed with the keystore committed at `app/debug.keystore`, so a later build can install over the previous one. The v0.2.0 and v0.2.1 preview APKs were signed by temporary CI keys and cannot be updated in place.
+Open this folder in Android Studio (recent stable version), allow Gradle sync, then choose **Build > Build Bundle(s) / APK(s) > Build APK(s)**. The project uses Android Gradle Plugin 8.7.3, Gradle 8.9, Java 17, compile SDK 35 and min SDK 26. Version 0.3.3. Debug APKs are signed with the keystore committed at `app/debug.keystore`, so a later build can install over the previous one. The v0.2.0 and v0.2.1 preview APKs were signed by temporary CI keys and cannot be updated in place.
 
 ## Build through GitHub Actions
 
